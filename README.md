@@ -72,3 +72,7 @@ Python 3 · pandas · openpyxl · numpy (apenas para os dados de exemplo)
 - Comparar dois períodos (mês atual vs. anterior)
 - Enviar o relatório por e-mail automaticamente
 - Interface web simples com Flask para enviar a planilha pelo navegador
+
+## Licença
+
+MIT. Veja o arquivo [LICENSE](LICENSE).
