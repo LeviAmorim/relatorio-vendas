@@ -13,6 +13,12 @@ Script em Python que transforma uma planilha de vendas (`.xlsx` ou `.csv`) em um
 | **Por Vendedor** | Mesmas métricas, agrupadas por vendedor |
 | **Dados** | Planilha original limpa, com a coluna Total calculada e filtros ligados |
 
+## Prévia
+
+Aba **Resumo** do relatório gerado a partir da planilha de exemplo (400 vendas fictícias):
+
+![Aba Resumo do relatório de vendas](docs/resumo.png)
+
 ## Instalação
 
 ```bash

@@ -46,6 +46,21 @@ def gerar(n: int, semente: int = 42) -> pd.DataFrame:
     return df.sort_values("Data").reset_index(drop=True)
 
 
+def formatar_planilha(ws) -> None:
+    """Deixa a planilha legível ao abrir: datas DD/MM/AAAA, colunas largas e cabeçalho em destaque."""
+    from openpyxl.styles import Font
+
+    larguras = {"A": 13, "B": 20, "C": 14, "D": 12, "E": 12, "F": 16}
+    for coluna, largura in larguras.items():
+        ws.column_dimensions[coluna].width = largura
+    for celula in ws[1]:
+        celula.font = Font(bold=True)
+    for linha in ws.iter_rows(min_row=2):
+        linha[0].number_format = "DD/MM/YYYY"  # Data
+        linha[5].number_format = "0.00"  # Preco_Unitario
+    ws.freeze_panes = "A2"
+
+
 def main():
     parser = argparse.ArgumentParser(description="Gera planilha de vendas fictícia.")
     parser.add_argument("-o", "--saida", type=Path, default=Path("exemplos/vendas_exemplo.xlsx"))
@@ -54,7 +69,9 @@ def main():
 
     args.saida.parent.mkdir(parents=True, exist_ok=True)
     df = gerar(args.linhas)
-    df.to_excel(args.saida, index=False)
+    with pd.ExcelWriter(args.saida, engine="openpyxl") as writer:
+        df.to_excel(writer, index=False, sheet_name="Vendas")
+        formatar_planilha(writer.sheets["Vendas"])
     print(f"Planilha de exemplo criada: {args.saida} ({len(df)} vendas)")
 
 
